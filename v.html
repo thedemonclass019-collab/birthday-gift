@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+/* sections */
+
+.section{
+display:none;
+padding:40px 20px;
+max-width:600px;
+margin:auto;
+}
+
+.active{
+display:block;
+animation:fade 1s;
+}
+
+@keyframes fade{
+from{opacity:0}
+to{opacity:1}
+}
+
+h1{
+font-size:34px;
+}
+
+p{
+font-size:18px;
+}
+
+/* button */
+
+button{
+margin-top:25px;
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4b7d;
+cursor:pointer;
+}
+
+/* cake */
+
+.cake{
+font-size:120px;
+margin-top:20px;
+transition:transform 1s;
+}
+
+/* confetti */
+
+.confetti{
+position:fixed;
+top:-10px;
+width:8px;
+height:8px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh) rotate(360deg);
+}
+}
+
+/* fireworks */
+
+.firework{
+position:absolute;
+font-size:28px;
+animation:boom 1s ease-out forwards;
+}
+
+@keyframes boom{
+0%{transform:scale(0)}
+100%{transform:scale(3);opacity:0}
+}
+
+/* gallery */
+
+.gallery img{
+width:90%;
+max-width:250px;
+border-radius:12px;
+margin:10px;
+}
+
+/* mobile */
+
+@media(max-width:600px){
+
+h1{font-size:28px}
+p{font-size:16px}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Section 1 -->
+
+<div id="section1" class="section active">
+
+<h1>🎉 Welcome My Love ❤️</h1>
+
+<p>I made something special for your birthday.</p>
+
+<button onclick="nextSection(2)">
+Start Surprise 🎁
+</button>
+
+</div>
+
+
+<!-- Section 2 -->
+
+<div id="section2" class="section">
+
+<h1>💌 My Birthday Letter</h1>
+
+<p id="letter"></p>
+
+<button onclick="nextSection(3)">
+See Your Cake 🎂
+</button>
+
+</div>
+
+
+<!-- Section 3 -->
+
+<div id="section3" class="section">
+
+<h1>🎂 Birthday Cake</h1>
+
+<div class="cake" id="cake">🎂</div>
+
+<button onclick="cutCake()">
+Cut the Cake 🔪
+</button>
+
+<div class="gallery">
+
+<h2>Our Memories 📸</h2>
+
+<img src="https://picsum.photos/300?1">
+<img src="https://picsum.photos/300?2">
+
+</div>
+
+</div>
+
+
+<script>
+
+/* section navigation */
+
+function nextSection(num){
+
+document.querySelectorAll(".section").forEach(sec=>{
+sec.classList.remove("active")
+})
+
+document.getElementById("section"+num).classList.add("active")
+
+if(num===2){
+typeLetter()
+}
+
+}
+
+/* typing letter */
+
+const text="Happy Birthday my love. You make my life brighter every day. I am grateful for every moment with you. I hope your birthday is filled with happiness, laughter, and endless love. ❤️"
+
+let i=0
+
+function typeLetter(){
+
+if(i<text.length){
+
+document.getElementById("letter").innerHTML+=text.charAt(i)
+
+i++
+
+setTimeout(typeLetter,40)
+
+}
+
+}
+
+/* confetti */
+
+function createConfetti(){
+
+const confetti=document.createElement("div")
+
+confetti.className="confetti"
+
+confetti.style.left=Math.random()*100+"vw"
+
+confetti.style.backgroundColor=
+["red","yellow","blue","green","pink","purple"][Math.floor(Math.random()*6)]
+
+confetti.style.animationDuration=(Math.random()*3+2)+"s"
+
+document.body.appendChild(confetti)
+
+setTimeout(()=>{
+confetti.remove()
+},5000)
+
+}
+
+/* fireworks */
+
+function fireworks(){
+
+for(let i=0;i<30;i++){
+
+let fw=document.createElement("div")
+
+fw.className="firework"
+fw.innerHTML="✨"
+
+fw.style.left=Math.random()*100+"%"
+fw.style.top=Math.random()*100+"%"
+
+document.body.appendChild(fw)
+
+setTimeout(()=>{
+fw.remove()
+},1000)
+
+}
+
+}
+
+/* cake cutting */
+
+function cutCake(){
+
+document.getElementById("cake").style.transform="rotate(10deg) scale(1.2)"
+
+for(let i=0;i<120;i++){
+setTimeout(createConfetti,i*15)
+}
+
+fireworks()
+
+}
+
+</script>
+
+</body>
+</html>
